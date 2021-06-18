@@ -1,15 +1,12 @@
-local config = require("cektmpl.config")
+local config = require("tmpl.config")
 
 local fn = vim.fn
 
 local check_filereadble = function(filepath)
-
   return fn.filereadable(filepath) ~= 0 and true or false
-
 end
 
 local function validate_filesystem(tbl_folder, tbl_filenames)
-
   for i = 1, #tbl_folder do
     fn.systemlist(string.format("mkdir -p %s", tbl_folder[i]))
   end
@@ -19,7 +16,6 @@ local function validate_filesystem(tbl_folder, tbl_filenames)
       fn.systemlist(string.format("touch %s", tbl_filenames[i]))
     end
   end
-
 end
 
 local M = {
@@ -27,7 +23,6 @@ local M = {
 }
 
 M.setup_test_project = function()
-
   local cwd = fn.fnamemodify(fn.getcwd(), ":p:h")
 
   local tbl_folder = {}
@@ -36,13 +31,10 @@ M.setup_test_project = function()
   for k, v in pairs(config.file_hirarky) do
     if k == M.file_ext then
       for j, s in pairs(v) do
-
         table.insert(tbl_folder, cwd .. "/" .. j)
 
         for i = 1, #s do
-
           table.insert(tbl_filenames, cwd .. "/" .. j .. "/" .. s[i])
-
         end
       end
     else
@@ -54,14 +46,11 @@ M.setup_test_project = function()
   validate_filesystem(tbl_folder, tbl_filenames)
 
   print("[+] Setup test project done..")
-
 end
 
 M.toggle = function()
-
   M.file_ext = config.file_ext()
   M.setup_test_project()
-
 end
 
 return M

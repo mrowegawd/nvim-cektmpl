@@ -8,21 +8,19 @@ if !exists('g:cektmpl_path')
 endif
 
 fun! MyfirstPluginYo()
-  lua for k in pairs(package.loaded) do if k:match('^cektmpl')
+  lua for k in pairs(package.loaded) do if k:match('^tmpl')
         \ then package.loaded[k] = nil end end
   " lua require'cektmpl'.toggle()
   lua require'cektmpl'
 endfunction
 
-command! Cektmpl lua require'cektmpl.init'.toggle()
+command! Tmpl lua require'tmpl.init'.toggle()
 
-
-nnoremap rr :call MyfirstPluginYo()<CR>
+" nnoremap rr :call MyfirstPluginYo()<CR>
 
 augroup MyfirstPluginYo
   autocmd!
 augroup END
-
 
 let g:loaded_cektmpl = 1
 
